@@ -1,37 +1,56 @@
-// Set the date we're counting down to
-var countDownDate = new Date("Feb 28, 2026 16:00:00").getTime();
-
-// Update the count down every 1 second
-var countdownFunction = setInterval(function () {
-
-    // Get today's date and time
-    var now = new Date().getTime();
-
-    // Find the distance between now and the count down date
-    var distance = countDownDate - now;
-
-    // Time calculations for days, hours, minutes and seconds
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    // Display the result in the elements with id
-    document.getElementById("days").innerHTML = days;
-    document.getElementById("hours").innerHTML = hours;
-    document.getElementById("minutes").innerHTML = minutes;
-    document.getElementById("seconds").innerHTML = seconds;
-
-    // If the count down is finished, write some text
-    if (distance < 0) {
-        clearInterval(countdownFunction);
-        document.getElementById("countdown").innerHTML = "The Event Has Started!";
-    }
-}, 1000);
-
-
-// Intersection Observer for Fade-in Animation
+// Encapsulate everything in a safe function
 document.addEventListener("DOMContentLoaded", function () {
+
+    // --- Countdown Timer ---
+    // Use ISO 8601 format for better cross-browser compatibility (e.g. Safari)
+    // Date: February 28, 2026 at 16:00:00
+    const targetDateStr = "2026-02-28T16:00:00";
+    var countDownDate = new Date(targetDateStr).getTime();
+
+    // Check if elements exist before verifying
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+    const countdownContainer = document.getElementById("countdown");
+
+    if (daysEl && hoursEl && minutesEl && secondsEl && countdownContainer) {
+        var countdownFunction = setInterval(function () {
+            try {
+                // Get today's date and time
+                var now = new Date().getTime();
+
+                // Find the distance between now and the count down date
+                var distance = countDownDate - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Display the result in the elements with id
+                daysEl.innerHTML = days;
+                hoursEl.innerHTML = hours;
+                minutesEl.innerHTML = minutes;
+                secondsEl.innerHTML = seconds;
+
+                // If the count down is finished, write some text
+                if (distance < 0) {
+                    clearInterval(countdownFunction);
+                    countdownContainer.innerHTML = "The Event Has Started!";
+                }
+            } catch (e) {
+                console.error("Countdown error:", e);
+                clearInterval(countdownFunction);
+            }
+        }, 1000);
+    }
+
+
+    // --- Animation & Music ---
+
+    // Intersection Observer for Fade-in Animation
     const observerOptions = {
         root: null,
         rootMargin: '0px',
