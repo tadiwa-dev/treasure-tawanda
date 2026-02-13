@@ -508,6 +508,8 @@ p {
 
     .hero-section {
         padding: var(--spacing-sm);
+        background-attachment: scroll;
+        /* Fixes zoomed-in/blurred bg on iOS */
     }
 
     .countdown-timer {
