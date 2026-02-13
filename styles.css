@@ -289,7 +289,8 @@ p {
     border-radius: 4px;
     /* subtle soft corner */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: 0;
+    /* Removed bottom margin since it's now at the bottom */
 }
 
 .guide-label {
@@ -297,6 +298,8 @@ p {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    /* Added margin to separate from image below */
 }
 
 .guide-label.recommended {
@@ -312,7 +315,8 @@ p {
     display: flex;
     justify-content: center;
     gap: var(--spacing-sm);
-    margin-top: var(--spacing-md);
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
 }
 
 .swatch {
