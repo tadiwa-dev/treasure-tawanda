@@ -404,11 +404,15 @@ p {
 }
 
 .bg-1 {
-    background-image: url('assets/images/BG1.jpg');
+    /* Background loaded via JS lazy loading */
+    background-color: var(--color-gold);
+    /* Placeholder color */
 }
 
 .bg-2 {
-    background-image: url('assets/images/BG2.jpg');
+    /* Background loaded via JS lazy loading */
+    background-color: var(--color-gold);
+    /* Placeholder color */
 }
 
 /* Music Control Button */

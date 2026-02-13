@@ -41,7 +41,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                if (entry.target.classList.contains('lazy-bg')) {
+                    entry.target.style.backgroundImage = `url('${entry.target.dataset.bg}')`;
+                    entry.target.classList.add('visible');
+                } else {
+                    entry.target.classList.add('visible');
+                }
                 observer.unobserve(entry.target); // Only animate once
             }
         });
@@ -49,6 +54,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const fadeElements = document.querySelectorAll('.fade-in');
     fadeElements.forEach(el => {
+        observer.observe(el);
+    });
+
+    const lazyBackgrounds = document.querySelectorAll('.lazy-bg');
+    lazyBackgrounds.forEach(el => {
         observer.observe(el);
     });
 
