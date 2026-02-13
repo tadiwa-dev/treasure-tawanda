@@ -59,18 +59,37 @@ document.addEventListener("DOMContentLoaded", function () {
     let isPlaying = false;
 
     musicBtn.addEventListener('click', function () {
+        toggleMusic();
+    });
+
+    // Auto-play on first interaction (scroll or click)
+    const enableAudio = () => {
+        if (!isPlaying) {
+            toggleMusic();
+        }
+        // Remove listeners after first attempt
+        window.removeEventListener('scroll', enableAudio);
+        window.removeEventListener('click', enableAudio);
+    };
+
+    window.addEventListener('scroll', enableAudio, { once: true });
+    // window.addEventListener('click', enableAudio, { once: true }); // Button handles click, global click might be annoying if they just want to read
+
+    function toggleMusic() {
         if (isPlaying) {
             music.pause();
             musicIcon.innerHTML = "♪"; // Note icon
             musicBtn.classList.remove('playing');
+            isPlaying = false;
         } else {
             music.play().then(() => {
                 musicIcon.innerHTML = "❚❚"; // Pause icon
                 musicBtn.classList.add('playing');
+                isPlaying = true;
             }).catch(error => {
-                console.log("Audio playback failed:", error);
+                console.log("Audio playback failed (likely blocked):", error);
+                // If blocked, we just stay in "paused" state
             });
         }
-        isPlaying = !isPlaying;
-    });
+    }
 });
