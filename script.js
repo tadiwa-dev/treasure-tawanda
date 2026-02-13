@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const music = document.getElementById('bg-music');
     const musicBtn = document.getElementById('music-btn');
     const musicIcon = document.getElementById('music-icon');
+    const musicHint = document.getElementById('music-hint');
     let isPlaying = false;
 
     musicBtn.addEventListener('click', function () {
@@ -85,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
             music.play().then(() => {
                 musicIcon.innerHTML = "❚❚"; // Pause icon
                 musicBtn.classList.add('playing');
+                musicHint.classList.add('hidden'); // Hide hint once playing
                 isPlaying = true;
             }).catch(error => {
                 console.log("Audio playback failed (likely blocked):", error);
